@@ -9,14 +9,14 @@ export default function Home({leaderboard}) {
   return (
     <div className="container">
       <Head>
-        <title>Next.js Starter!</title>
+        <title>Demolition Leaderboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
+        <Header title="Welcome to the Demolition Leaderboard!" />
         <p className="description">
-          Get started by editing <code>pages/index.js</code>
+          Join the leaderboard on the Discord <a href="https://discord.gg/bSNhUbQ">https://discord.gg/bSNhUbQ</a>
         </p>
         <LeaderboardTable leaderboard={{leaderboard}}/>
       </main>
@@ -26,18 +26,15 @@ export default function Home({leaderboard}) {
   )
 }
 
-export async function getServerSideProps(context) {
-  // TODO put downloadData content in here
-  let leaderboard = await fetch("http://localhost:8888/.netlify/functions/downloadData")
+export async function getStaticProps(context) {
+  let leaderboard = await fetch("https://demolition-leaderboard.netlify.app/.netlify/functions/downloadData")
       .then(function(response) {
           if (response.status >= 400) {
-              throw new Error("Bad response from server");
+              console.log(response);
+              return {};
           }
           return response.json();
       });
-
-  console.log(leaderboard["181981061763301377"]);
-
 
   return {
       props: {

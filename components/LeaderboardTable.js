@@ -1,4 +1,4 @@
-
+import MUIDataTable from "mui-datatables";
 export default function LeaderboardTable({ leaderboard }) {
     let players = [];
 
@@ -10,46 +10,29 @@ export default function LeaderboardTable({ leaderboard }) {
         let dateString = date.toLocaleDateString();
         let newPlayer = {
             "Name": playerData["Name"],
-            "Demolitions": playerData["Demolitions"],
-            "Exterminations": playerData["Exterminations"],
+            "Demolitions": parseInt(playerData["Demolitions"]),
+            "Exterminations": parseInt(playerData["Exterminations"]),
             "Last Update": dateString,
         }
         players.push(newPlayer);
     }
 
-    let data;
+    let columns;
     if (!players[0]) {
-        data = []
+        columns = []
     } else {
-        data = Object.keys(players[0]);
+        columns = Object.keys(players[0]);
     }
 
-    let tableHead = 
-        <thead key={"lbTableHead"}>
-            <tr>
-                {data.map((val) => {
-                    return <td key={val}>{val}</td>;
-                })}
-            </tr>
-        </thead>;
+    const options = {
+        filterType: 'checkbox',
+    };
 
-    let tableBody = 
-        <tbody key={"lbTableBody"}>
-            {players.map((playerStats) => {
-                return <tr key={"row" + playerStats.Name}>
-                    <td>{playerStats.Name}</td>
-                    <td>{playerStats.Demolitions}</td>
-                    <td>{playerStats.Exterminations}</td>
-                    <td>{playerStats["Last Update"]}</td>
-                </tr>
-            })}
-        </tbody>;
-
-    return (
-        <table id='LeaderboardTable'>
-            {tableHead}
-            {tableBody}
-        </table>
-    );
+    return <MUIDataTable
+        title={"Demolition Leaderboard"}
+        data={players}
+        columns={columns}
+        options={options}
+    />
 }
 
