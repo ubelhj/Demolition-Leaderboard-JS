@@ -5,10 +5,8 @@ let dbx = new Dropbox({accessToken: config.dropToken, fetch: fetch});
 
 exports.handler = async function(event, context) {
     // your server-side functionality
-    console.log("HELLO")
     try {
         const response = await dbx.filesDownload({path: "/leaderboard.json"});
-        console.log(response);
 
         if (response.status !== 200) {
             return {
