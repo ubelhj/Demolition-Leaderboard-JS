@@ -16,11 +16,13 @@ export default function Home({players, totalDemos, totalExterms, time}) {
       <main>
         <Header title="Welcome to the Demolition Leaderboard!" />
         <p className="description">
-          Join the leaderboard on the Discord <a href="https://discord.gg/bSNhUbQ">https://discord.gg/bSNhUbQ</a>
+          Join the leaderboard on the Discord <a href="https://discord.gg/bSNhUbQ">
+            https://discord.gg/bSNhUbQ</a>
         </p>
         <p>
-          Collectively, {players.length} members have demolished {totalDemos} unsuspecting players, 
-          leading to {totalExterms} exterminations
+          Collectively, {players.length.toLocaleString('en-US')} members have 
+          demolished {totalDemos.toLocaleString('en-US')} unsuspecting players, 
+          leading to {totalExterms.toLocaleString('en-US')} exterminations
         </p>
         <p>
           Victims have waited a total of {time.days} days, {time.hours} hours, {time.minutes} minutes, 
@@ -34,13 +36,14 @@ export default function Home({players, totalDemos, totalExterms, time}) {
 }
 
 export async function getStaticProps(context) {
-  let leaderboard = await fetch("https://demolition-leaderboard.netlify.app/.netlify/functions/downloadData")
+  let leaderboard = 
+    await fetch("https://demolition-leaderboard.netlify.app/.netlify/functions/downloadData")
       .then(function(response) {
-          if (response.status >= 400) {
-              console.log(response);
-              return {};
-          }
-          return response.json();
+        if (response.status >= 400) {
+          console.log(response);
+          return {};
+        }
+        return response.json();
       });
 
   let players = []
@@ -55,10 +58,10 @@ export async function getStaticProps(context) {
     let playerExterms = parseInt(playerData["Exterminations"]);
     totalExterms += playerExterms;
     let newPlayer = {
-        "Name": playerData["Name"],
-        "Demolitions": playerDemos,
-        "Exterminations": playerExterms,
-        "Last Update": dateString,
+      "Name": playerData["Name"],
+      "Demolitions": playerDemos,
+      "Exterminations": playerExterms,
+      "Last Update": dateString,
     }
     players.push(newPlayer);
   }
@@ -92,15 +95,15 @@ export async function getStaticProps(context) {
   }
 
   return {
-      props: {
-          players,
-          totalDemos,
-          totalExterms,
-          time
-      },
-      // Next.js re-generate the page:
-      // - When a request comes in
-      // - At most once every 10 seconds
-      revalidate: 60, // In seconds
+    props: {
+      players,
+      totalDemos,
+      totalExterms,
+      time
+    },
+    // Next.js re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 60, // In seconds
   };
 }

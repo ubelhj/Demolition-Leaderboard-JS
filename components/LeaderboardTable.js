@@ -47,6 +47,20 @@ export default function LeaderboardTable({ players }) {
         tableLayout: "auto",
         tableWidth: "fixed",
         emptyRowsWhenPaging: false,
+        rowStyle: (data, index, level) => {
+            if (index % 2 == 0) {
+                return {
+                    backgroundColor: "#FFFFFF",
+                }
+            } else {
+                return {
+                    backgroundColor: "#F8F8F8",
+                }
+            }
+        },
+        headerStyle: {
+            backgroundColor: '#F8F8F8',
+        },
     };
 
     return <MaterialTable
