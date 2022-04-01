@@ -4,7 +4,7 @@ import Footer from '@components/Footer'
 import LeaderboardTable from '@components/LeaderboardTable'
 const fetch = require('isomorphic-fetch');
 
-export default function Home({players, totalDemos, totalExterms}) {
+export default function Home({players, totalDemos, totalExterms, time}) {
 
   return (
     <div className="container">
@@ -20,13 +20,15 @@ export default function Home({players, totalDemos, totalExterms}) {
         </p>
         <p>
           Collectively, {players.length} members have demolished {totalDemos} unsuspecting players, 
-          leading to {totalExterms} exterminations 
-          and making their victims wait a total of {3 * totalDemos} seconds
+          leading to {totalExterms} exterminations
         </p>
-        <LeaderboardTable players={players}/>
+        <p>
+          Victims have waited a total of {time.days} days, {time.hours} hours, {time.minutes} minutes, 
+          and {time.seconds} seconds  to respawn
+        </p>
+        
       </main>
-
-      <Footer />
+      <LeaderboardTable players={players}/>
     </div>
   )
 }
@@ -61,22 +63,21 @@ export async function getStaticProps(context) {
     players.push(newPlayer);
   }
 
-  players.sort((a, b) => {
-    if (a.Demolitions !== b.Demolitions) {
-      return b.Demolitions - a.Demolitions;
-    }
-    if (a.Exterminations !== b.Exterminations) {
-      return b.Exterminations - a.Exterminations;
-    }
-    return String.compare(a.Name, b.Name);
-  })
+  let days = Math.floor(3 * totalDemos / 60 / 60 / 24);
+  let hours = Math.floor(3 * totalDemos / 60 / 60) - (days * 24);
+  let minutes = Math.floor(3 * totalDemos / 60) - (days * 24 * 60) - (hours * 60);
+  let seconds = (3 * totalDemos) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+  let time = {
+    days, hours, minutes, seconds
+  }
 
   return {
       props: {
-          leaderboard,
           players,
           totalDemos,
-          totalExterms
+          totalExterms,
+          time
       },
       // Next.js re-generate the page:
       // - When a request comes in
