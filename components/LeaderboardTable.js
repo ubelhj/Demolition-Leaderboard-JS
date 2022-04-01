@@ -14,6 +14,7 @@ export default function LeaderboardTable({ leaderboard }) {
         "Demolitions": playerDemos,
         "Exterminations": playerExterms,
         "Last Update": dateString,
+        "Country": playerData.Country
         }
         players.push(newPlayer);
     }
@@ -67,6 +68,10 @@ export default function LeaderboardTable({ leaderboard }) {
             title: 'Exterminations Rank',
             field: 'ExterminationsRank',
             defaultSort: 'asc'
+        },
+        {
+            title: 'Country',
+            field: 'Country'
         },
         {
             title: 'Last Update',
