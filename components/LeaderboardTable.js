@@ -34,9 +34,9 @@ export default function LeaderboardTable({ players }) {
         pageSizeOptions: [10, 15, 25, 50, 100],
         showTitle: false,
         padding: "dense",
-        tableLayout: "fixed",
-        tableWidth: "full",
-        
+        tableLayout: "auto",
+        tableWidth: "fixed",
+        emptyRowsWhenPaging: false,
     };
 
     return <MaterialTable
