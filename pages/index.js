@@ -4,8 +4,7 @@ import Footer from '@components/Footer'
 import LeaderboardTable from '@components/LeaderboardTable'
 const fetch = require('isomorphic-fetch');
 
-export default function Home({players, totalDemos, totalExterms, time}) {
-
+export default function Home({leaderboard, totals, time}) {
   return (
     <div className="container">
       <Head>
@@ -20,9 +19,9 @@ export default function Home({players, totalDemos, totalExterms, time}) {
             https://discord.gg/bSNhUbQ</a>
         </p>
         <p>
-          Collectively, {players.length.toLocaleString('en-US')} members have 
-          demolished {totalDemos.toLocaleString('en-US')} unsuspecting players, 
-          leading to {totalExterms.toLocaleString('en-US')} exterminations
+          Collectively, {totals.players.toLocaleString()} members have 
+          demolished {totals.demos.toLocaleString()} unsuspecting players, 
+          leading to {totals.exterms.toLocaleString()} exterminations
         </p>
         <p>
           Victims have waited a total of {time.days} days, {time.hours} hours, {time.minutes} minutes, 
@@ -30,7 +29,7 @@ export default function Home({players, totalDemos, totalExterms, time}) {
         </p>
         
       </main>
-      <LeaderboardTable players={players}/>
+      <LeaderboardTable leaderboard={leaderboard}/>
     </div>
   )
 }
@@ -46,43 +45,16 @@ export async function getStaticProps(context) {
         return response.json();
       });
 
-  let players = []
   let totalDemos = 0;
   let totalExterms = 0;
+  let totalPlayers = 0;
   for (let player in leaderboard) {
     let playerData = leaderboard[player];
-    let date = new Date(playerData["LastUpdate"]);
-    let dateString = date.toLocaleDateString();
     let playerDemos = parseInt(playerData["Demolitions"]);
     totalDemos += playerDemos;
     let playerExterms = parseInt(playerData["Exterminations"]);
     totalExterms += playerExterms;
-    let newPlayer = {
-      "Name": playerData["Name"],
-      "Demolitions": playerDemos,
-      "Exterminations": playerExterms,
-      "Last Update": dateString,
-    }
-    players.push(newPlayer);
-  }
-
-  players.sort((a, b) => {
-    return b.Demolitions - a.Demolitions;
-  })
-
-  let i = 1;
-  for (let player in players) {
-    players[player].DemolitionsRank = i;
-    i++;
-  }
-
-  players.sort((a, b) => {
-    return b.Exterminations - a.Exterminations;
-  })
-  i = 1;
-  for (let player in players) {
-    players[player].ExterminationsRank = i;
-    i++;
+    totalPlayers ++;
   }
 
   let days = Math.floor(3 * totalDemos / 60 / 60 / 24);
@@ -94,11 +66,16 @@ export async function getStaticProps(context) {
     days, hours, minutes, seconds
   }
 
+  let totals = {
+    players: totalPlayers,
+    demos: totalDemos,
+    exterms: totalExterms,
+  }
+
   return {
     props: {
-      players,
-      totalDemos,
-      totalExterms,
+      leaderboard,
+      totals,
       time
     },
     // Next.js re-generate the page:
