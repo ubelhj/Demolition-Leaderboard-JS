@@ -39,6 +39,10 @@ export async function getStaticProps(context) {
   return {
       props: {
           leaderboard,
-      }
+      },
+      // Next.js re-generate the page:
+      // - When a request comes in
+      // - At most once every 10 seconds
+      revalidate: 60, // In seconds
   };
 }

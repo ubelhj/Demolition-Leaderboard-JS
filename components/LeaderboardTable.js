@@ -17,15 +17,36 @@ export default function LeaderboardTable({ leaderboard }) {
         players.push(newPlayer);
     }
 
-    let columns;
-    if (!players[0]) {
-        columns = []
-    } else {
-        columns = Object.keys(players[0]);
-    }
+    let columns = [
+        {
+            name: 'Name',
+            options: {
+                 filter: false
+            },
+        },
+        {
+            name: 'Demolitions',
+            options: {
+                filter: false,
+                sortDescFirst: true
+            },
+        },
+        {
+            name: 'Exterminations',
+            options: {
+                filter: false,
+                sortDescFirst: true
+            },
+        },
+        {
+            name: 'Last Update',
+            options: {
+                 filter: true
+            },
+        },
+    ];
 
     const options = {
-        filterType: 'checkbox',
     };
 
     return <MUIDataTable
