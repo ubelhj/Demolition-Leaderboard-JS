@@ -16,9 +16,19 @@ export default function LeaderboardTable({ players }) {
             defaultSort: 'desc'
         },
         {
+            title: 'Demolitions Rank',
+            field: 'DemolitionsRank',
+            defaultSort: 'asc'
+        },
+        {
             title: 'Exterminations',
             field: 'Exterminations',
             defaultSort: 'desc'
+        },
+        {
+            title: 'Exterminations Rank',
+            field: 'ExterminationsRank',
+            defaultSort: 'asc'
         },
         {
             title: 'Last Update',

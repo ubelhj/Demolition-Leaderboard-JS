@@ -63,6 +63,25 @@ export async function getStaticProps(context) {
     players.push(newPlayer);
   }
 
+  players.sort((a, b) => {
+    return b.Demolitions - a.Demolitions;
+  })
+
+  let i = 1;
+  for (let player in players) {
+    players[player].DemolitionsRank = i;
+    i++;
+  }
+
+  players.sort((a, b) => {
+    return b.Exterminations - a.Exterminations;
+  })
+  i = 1;
+  for (let player in players) {
+    players[player].ExterminationsRank = i;
+    i++;
+  }
+
   let days = Math.floor(3 * totalDemos / 60 / 60 / 24);
   let hours = Math.floor(3 * totalDemos / 60 / 60) - (days * 24);
   let minutes = Math.floor(3 * totalDemos / 60) - (days * 24 * 60) - (hours * 60);
