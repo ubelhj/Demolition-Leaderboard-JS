@@ -3,16 +3,12 @@ export default function LeaderboardTable({ leaderboard }) {
     //let players = players;
 
     let players = []
-    let totalDemos = 0;
-    let totalExterms = 0;
     for (let player in leaderboard) {
         let playerData = leaderboard[player];
         let date = new Date(playerData["LastUpdate"]);
         let dateString = date.toLocaleDateString();
         let playerDemos = parseInt(playerData["Demolitions"]);
-        totalDemos += playerDemos;
         let playerExterms = parseInt(playerData["Exterminations"]);
-        totalExterms += playerExterms;
         let newPlayer = {
         "Name": playerData["Name"],
         "Demolitions": playerDemos,
@@ -49,7 +45,10 @@ export default function LeaderboardTable({ leaderboard }) {
         {
             title: 'Demolitions',
             field: 'Demolitions',
-            defaultSort: 'desc'
+            defaultSort: 'desc',
+            render: (data) => {
+                return data.Demolitions.toLocaleString();
+            }
         },
         {
             title: 'Demolitions Rank',
@@ -59,7 +58,10 @@ export default function LeaderboardTable({ leaderboard }) {
         {
             title: 'Exterminations',
             field: 'Exterminations',
-            defaultSort: 'desc'
+            defaultSort: 'desc',
+            render: (data) => {
+                return data.Exterminations.toLocaleString();
+            }
         },
         {
             title: 'Exterminations Rank',
