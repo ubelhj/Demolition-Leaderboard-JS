@@ -1,4 +1,5 @@
 import MaterialTable from '@material-table/core';
+import PlayerHistoryPanel from '@components/PlayerHistoryPanel'
 export default function LeaderboardTable({ leaderboard }) {
     //let players = players;
 
@@ -10,11 +11,12 @@ export default function LeaderboardTable({ leaderboard }) {
         let playerDemos = parseInt(playerData["Demolitions"]);
         let playerExterms = parseInt(playerData["Exterminations"]);
         let newPlayer = {
-        "Name": playerData["Name"],
-        "Demolitions": playerDemos,
-        "Exterminations": playerExterms,
-        "Last Update": dateString,
-        "Country": playerData.Country
+            "Name": playerData["Name"],
+            "Demolitions": playerDemos,
+            "Exterminations": playerExterms,
+            "Last Update": dateString,
+            "Country": playerData.Country,
+            "History": playerData.History
         }
         players.push(newPlayer);
     }
@@ -104,6 +106,7 @@ export default function LeaderboardTable({ leaderboard }) {
         headerStyle: {
             backgroundColor: '#F8F8F8',
         },
+        detailPanelType: "single"
     };
 
     return <MaterialTable
@@ -111,5 +114,8 @@ export default function LeaderboardTable({ leaderboard }) {
         data={players}
         columns={columns}
         options={options}
+        detailPanel={({rowData}) => {
+            return PlayerHistoryPanel({rowData});
+        }}
     />
 }
