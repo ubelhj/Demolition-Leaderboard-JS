@@ -35,3 +35,7 @@ code {
   /* align-items: center; */
   overflow-x: auto;
 }
+
+.playerHistoryPanel {
+  padding: 0 1% 0% 1%;
+}

@@ -106,7 +106,9 @@ export default function LeaderboardTable({ leaderboard }) {
         headerStyle: {
             backgroundColor: '#F8F8F8',
         },
-        detailPanelType: "single"
+        detailPanelType: "single",
+        columnsButton: true,
+        draggable: false,
     };
 
     return <MaterialTable

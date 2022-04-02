@@ -29,7 +29,30 @@ export default function PlayerHistoryPanel({ rowData }) {
     ];
 
     const options = {
-    
+        thirdSortClick: false,
+        idSynonym: "Time",
+        pageSize: 10,
+        pageSizeOptions: [10, 15, 25, 50, 100],
+        padding: "dense",
+        tableLayout: "auto",
+        tableWidth: "fixed",
+        emptyRowsWhenPaging: false,
+        rowStyle: (data, index, level) => {
+            if (index % 2 == 0) {
+                return {
+                    backgroundColor: "#FFFFFF",
+                }
+            } else {
+                return {
+                    backgroundColor: "#F8F8F8",
+                }
+            }
+        },
+        headerStyle: {
+            backgroundColor: '#F8F8F8',
+        },
+        detailPanelType: "single",
+        draggable: false,
     };
 
     return <MaterialTable
