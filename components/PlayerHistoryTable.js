@@ -5,14 +5,14 @@ export default function PlayerHistoryPanel({ rowData }) {
             title: 'Demolitions',
             field: 'Demolitions',
             render: (data) => {
-                return data.Demolitions.toLocaleString();
+                return parseInt(data.Demolitions).toLocaleString();
             }
         },
         {
             title: 'Exterminations',
             field: 'Exterminations',
             render: (data) => {
-                return data.Exterminations.toLocaleString();
+                return parseInt(data.Exterminations).toLocaleString();
             }
         },
         {
