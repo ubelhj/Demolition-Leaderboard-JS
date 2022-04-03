@@ -119,5 +119,8 @@ export default function LeaderboardTable({ leaderboard }) {
         detailPanel={({rowData}) => {
             return PlayerHistoryPanel({rowData});
         }}
+        onRowClick={(event, rowData, toggleDetailPanel) => {
+            toggleDetailPanel();
+        }}
     />
 }
