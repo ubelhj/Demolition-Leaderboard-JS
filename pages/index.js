@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '@components/Header'
 import LeaderboardTable from '@components/LeaderboardTable'
+import { calculateDays, calculateHours, calculateMinutes, calculateSeconds, calculateYears } from '@components/utils/timeHelper';
 const fetch = require('isomorphic-fetch');
 
 export default function Home({leaderboard, totals, time}) {
@@ -28,6 +29,13 @@ export default function Home({leaderboard, totals, time}) {
         </p>
         
       </main>
+      <div>
+        <a href="/countryLeaderboard">
+          <button>
+            Country Leaderboard
+          </button>
+        </a>
+      </div>
       <LeaderboardTable leaderboard={leaderboard}/>
     </div>
   )
@@ -47,22 +55,28 @@ export async function getStaticProps(context) {
   let totalDemos = 0;
   let totalExterms = 0;
   let totalPlayers = 0;
+  
   for (let player in leaderboard) {
     let playerData = leaderboard[player];
+
     let playerDemos = parseInt(playerData["Demolitions"]);
     totalDemos += playerDemos;
+
     let playerExterms = parseInt(playerData["Exterminations"]);
     totalExterms += playerExterms;
+
     totalPlayers ++;
   }
 
-  let years = Math.floor(3 * totalDemos / 60 / 60 / 24 / 365);
-  let days = Math.floor(3 * totalDemos / 60 / 60 / 24) - (years * 365);
-  let hours = Math.floor(3 * totalDemos / 60 / 60) - (years * 365 * 24) - (days * 24);
-  let minutes = Math.floor(3 * totalDemos / 60) - (years * 365 * 24 * 60) - (days * 24 * 60) - (hours * 60);
-  let seconds = (3 * totalDemos) - (years * 365 * 24 * 60 * 60) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+  let demoSeconds = totalDemos * 3
 
-  let time = {
+  const years = calculateYears(demoSeconds);
+  const days = calculateDays(demoSeconds, years);
+  const hours = calculateHours(demoSeconds, years, days);
+  const minutes = calculateMinutes(demoSeconds, years, days, hours);
+  const seconds = calculateSeconds(demoSeconds, years, days, hours, minutes)
+
+  const time = {
     years, days, hours, minutes, seconds
   }
 
