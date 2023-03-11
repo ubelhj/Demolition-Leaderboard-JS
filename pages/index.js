@@ -23,7 +23,7 @@ export default function Home({leaderboard, totals, time}) {
           leading to {totals.exterms.toLocaleString()} exterminations
         </p>
         <p>
-          Victims have waited a total of {time.days} days, {time.hours} hours, {time.minutes} minutes, 
+          Victims have waited a total of {time.years} year, {time.days} days, {time.hours} hours, {time.minutes} minutes, 
           and {time.seconds} seconds  to respawn
         </p>
         
@@ -56,13 +56,14 @@ export async function getStaticProps(context) {
     totalPlayers ++;
   }
 
-  let days = Math.floor(3 * totalDemos / 60 / 60 / 24);
-  let hours = Math.floor(3 * totalDemos / 60 / 60) - (days * 24);
-  let minutes = Math.floor(3 * totalDemos / 60) - (days * 24 * 60) - (hours * 60);
-  let seconds = (3 * totalDemos) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+  let years = Math.floor(3 * totalDemos / 60 / 60 / 24 / 365);
+  let days = Math.floor(3 * totalDemos / 60 / 60 / 24) - (years * 365);
+  let hours = Math.floor(3 * totalDemos / 60 / 60) - (years * 365 * 24) - (days * 24);
+  let minutes = Math.floor(3 * totalDemos / 60) - (years * 365 * 24 * 60) - (days * 24 * 60) - (hours * 60);
+  let seconds = (3 * totalDemos) - (years * 365 * 24 * 60 * 60) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
   let time = {
-    days, hours, minutes, seconds
+    years, days, hours, minutes, seconds
   }
 
   let totals = {
