@@ -1,42 +1,37 @@
-import Head from 'next/head'
+import CountryLeaderboardTable from '@components/CountryLeaderboardTable';
 import Header from '@components/Header'
 import LeaderboardTable from '@components/LeaderboardTable'
 import { calculateDays, calculateHours, calculateMinutes, calculateSeconds, calculateYears } from '@components/utils/timeHelper';
+import { useState } from 'react';
 const fetch = require('isomorphic-fetch');
 
+
 export default function Home({leaderboard, totals, time}) {
+  const [table, setTable] = useState('player')
+
   return (
     <div className="container">
-      <Head>
-        <title>Demolition Leaderboard</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <main>
-        <Header title="Welcome to the Demolition Leaderboard!" />
-        <p className="description">
-          Join the leaderboard on the Discord <a href="https://discord.gg/bSNhUbQ">
-            https://discord.gg/bSNhUbQ</a>
-        </p>
-        <p>
-          Collectively, {totals.players.toLocaleString()} members have 
-          demolished {totals.demos.toLocaleString()} unsuspecting players, 
-          leading to {totals.exterms.toLocaleString()} exterminations
-        </p>
-        <p>
-          Victims have waited a total of {time.years} year, {time.days} days, {time.hours} hours, {time.minutes} minutes, 
-          and {time.seconds} seconds  to respawn
-        </p>
-        
-      </main>
+      <Header totals={totals} time={time} />
+
       <div>
-        <a href="/countryLeaderboard">
-          <button>
+        {table === 'player' ? (
+          <button onClick={() => setTable('country')}>
             Country Leaderboard
           </button>
-        </a>
+        ) : (
+          <button onClick={() => setTable('player')}>
+            Player Leaderboard
+          </button>
+        )}
       </div>
-      <LeaderboardTable leaderboard={leaderboard}/>
+
+      {table === 'player' ? (
+        <LeaderboardTable leaderboard={leaderboard}/>
+      ) : (
+        <CountryLeaderboardTable leaderboard={leaderboard}/>
+      )}
+
     </div>
   )
 }
