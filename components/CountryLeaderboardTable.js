@@ -102,7 +102,6 @@ export default function CountryLeaderboardTable({ leaderboard }) {
         tableLayout: "auto",
         tableWidth: "fixed",
         emptyRowsWhenPaging: false,
-        
         rowStyle: (data, index, level) => {
             if (index % 2 == 0) {
                 return {
