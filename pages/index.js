@@ -1,6 +1,7 @@
 import CountryLeaderboardTable from '@components/CountryLeaderboardTable';
 import Header from '@components/Header'
 import LeaderboardTable from '@components/LeaderboardTable'
+import { getPlayerAndCountryData } from '@components/utils/leaderboardData';
 import { calculateDays, calculateHours, calculateMinutes, calculateSeconds, calculateYears } from '@components/utils/timeHelper';
 import { useState } from 'react';
 const fetch = require('isomorphic-fetch');
@@ -8,6 +9,8 @@ const fetch = require('isomorphic-fetch');
 
 export default function Home({leaderboard, totals, time}) {
   const [table, setTable] = useState('player')
+
+  const data = getPlayerAndCountryData(leaderboard)
 
   return (
     <div className="container">
@@ -27,9 +30,9 @@ export default function Home({leaderboard, totals, time}) {
       </div>
 
       {table === 'player' ? (
-        <LeaderboardTable leaderboard={leaderboard}/>
+        <LeaderboardTable players={data?.playerData}/>
       ) : (
-        <CountryLeaderboardTable leaderboard={leaderboard}/>
+        <CountryLeaderboardTable countryData={data?.countryData}/>
       )}
 
     </div>
