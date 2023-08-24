@@ -26,7 +26,6 @@ const getCountryData = (players) => {
     const countriesWithDemos = players.map((p) => {
         return {Country: p.Country, Demolitions: p.Demolitions, Exterminations: p.Exterminations }
     })
-    const playersWithCountries = countriesWithDemos.filter(p => p.Country != undefined)
 
     const filteredCountriesWithDemos = countriesWithDemos.filter((c) => c.Country?.length === 3)
 
