@@ -27,14 +27,7 @@ const getCountryData = (players) => {
         return {Country: p.Country, Demolitions: p.Demolitions, Exterminations: p.Exterminations }
     })
     const playersWithCountries = countriesWithDemos.filter(p => p.Country != undefined)
-    const countryList = playersWithCountries.map(p => p.Country)
-    let countryCounts = {}
-    const countCountryContributors = () => {
-        countryList.forEach(c => {
-            countryCounts[c] = (countryCounts[c] || 0) + 1
-        })
-    }
-    countCountryContributors()
+
     const filteredCountriesWithDemos = countriesWithDemos.filter((c) => c.Country?.length === 3)
 
     const countryData = filteredCountriesWithDemos.reduce(function(acc, cur) {
