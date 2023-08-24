@@ -34,11 +34,15 @@ export default function CountryLeaderboardTable({ countryData }) {
             field: 'ExterminationsRank',
             defaultSort: 'asc'
         },
+        {
+            title: 'Contributors',
+            field: 'Contributors',
+        },
     ];
 
     const options = {
         thirdSortClick: false,
-        idSynonym: "Name",
+        idSynonym: "Country",
         pageSize: 25,
         pageSizeOptions: [10, 15, 25, 50, 100],
         showTitle: false,
