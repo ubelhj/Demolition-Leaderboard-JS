@@ -1,63 +1,7 @@
 import MaterialTable from '@material-table/core';
 
 
-export default function CountryLeaderboardTable({ leaderboard }) {
-    //let players = players;
-
-    let players = []
-    for (let player in leaderboard) {
-        let playerData = leaderboard[player];
-        let playerDemos = parseInt(playerData["Demolitions"]);
-        let playerExterms = parseInt(playerData["Exterminations"]);
-        let newPlayer = {
-            "Demolitions": playerDemos,
-            "Exterminations": playerExterms,
-            "Country": playerData.Country?.toUpperCase(),
-        }
-        players.push(newPlayer);
-    }
-
-    const countriesWithDemos = players.map((p) => {
-        return {Country: p.Country, Demolitions: p.Demolitions, Exterminations: p.Exterminations }
-    })
-    const filteredCountriesWithDemos = countriesWithDemos.filter((c) => c.Country?.length === 3)
-
-    const countryData = filteredCountriesWithDemos.reduce(function(acc, cur) {
-        const index = acc.findIndex(c => c.Country === cur.Country);
-        const obj = {
-            Country: cur.Country,
-            Demolitions: cur.Demolitions,
-            Exterminations: cur.Exterminations
-        }
-        if(index < 0) {
-            acc.push(obj)
-        } else {
-            acc[index].Demolitions = acc[index].Demolitions + cur.Demolitions;
-            acc[index].Exterminations = acc[index].Exterminations + cur.Exterminations;
-        }
-        
-        return acc;
-      }, [])
-
-    countryData.sort((a, b) => {
-        return b.Demolitions - a.Demolitions;
-    })
-
-    let i = 1;
-    for (let country in countryData) {
-        countryData[country].DemolitionsRank = i;
-        i++;
-    }
-
-    countryData.sort((a, b) => {
-        return b.Exterminations - a.Exterminations;
-    })
-    
-    let j = 1;
-    for (let country in countryData) {
-        countryData[country].ExterminationsRank = j;
-        j++;
-    }
+export default function CountryLeaderboardTable({ countryData }) {
 
     let columns = [
         {

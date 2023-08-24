@@ -1,44 +1,6 @@
 import MaterialTable from '@material-table/core';
 import PlayerHistoryPanel from '@components/PlayerHistoryPanel'
-export default function LeaderboardTable({ leaderboard }) {
-    //let players = players;
-
-    let players = []
-    for (let player in leaderboard) {
-        let playerData = leaderboard[player];
-        let date = new Date(playerData["LastUpdate"]);
-        let dateString = date.toLocaleDateString();
-        let playerDemos = parseInt(playerData["Demolitions"]);
-        let playerExterms = parseInt(playerData["Exterminations"]);
-        let newPlayer = {
-            "Name": playerData["Name"],
-            "Demolitions": playerDemos,
-            "Exterminations": playerExterms,
-            "Last Update": dateString,
-            "Country": playerData.Country?.toUpperCase(),
-            "History": playerData.History
-        }
-        players.push(newPlayer);
-    }
-
-    players.sort((a, b) => {
-        return b.Demolitions - a.Demolitions;
-    })
-
-    let i = 1;
-    for (let player in players) {
-        players[player].DemolitionsRank = i;
-        i++;
-    }
-
-    players.sort((a, b) => {
-        return b.Exterminations - a.Exterminations;
-    })
-    i = 1;
-    for (let player in players) {
-        players[player].ExterminationsRank = i;
-        i++;
-    }
+export default function LeaderboardTable({ players }) {
 
     let columns = [
         {
