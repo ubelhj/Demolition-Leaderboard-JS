@@ -10,7 +10,6 @@ export default function LeaderboardTable({ players }) {
         {
             title: 'Demolitions',
             field: 'Demolitions',
-            defaultSort: 'desc',
             render: (data) => {
                 return data.Demolitions.toLocaleString();
             }
@@ -23,7 +22,6 @@ export default function LeaderboardTable({ players }) {
         {
             title: 'Exterminations',
             field: 'Exterminations',
-            defaultSort: 'desc',
             render: (data) => {
                 return data.Exterminations.toLocaleString();
             }
@@ -31,7 +29,6 @@ export default function LeaderboardTable({ players }) {
         {
             title: 'Exterminations Rank',
             field: 'ExterminationsRank',
-            defaultSort: 'asc'
         },
         {
             title: 'Country',
@@ -40,7 +37,6 @@ export default function LeaderboardTable({ players }) {
         {
             title: 'Last Update',
             field: 'Last Update',
-            defaultSort: 'asc'
         },
     ];
 

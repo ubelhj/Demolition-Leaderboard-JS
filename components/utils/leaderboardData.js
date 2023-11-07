@@ -49,7 +49,7 @@ const getCountryData = (players) => {
       }, [])
 
     countryData.sort((a, b) => {
-        return b.Demolitions - a.Demolitions;
+        return b.Demolitions - a.Demolitions || b.Exterminations - a.Exterminations;
     })
 
     let i = 1;
@@ -59,7 +59,7 @@ const getCountryData = (players) => {
     }
 
     countryData.sort((a, b) => {
-        return b.Exterminations - a.Exterminations;
+        return b.Exterminations - a.Exterminations || b.Demolitions - a.Demolitions;
     })
     
     let j = 1;
@@ -77,7 +77,7 @@ export const getPlayerAndCountryData = (leaderboard) => {
     const countryData = getCountryData(players)
 
     players.sort((a, b) => {
-        return b.Demolitions - a.Demolitions;
+        return b.Demolitions - a.Demolitions || b.Exterminations - a.Exterminations;
     })
 
     let i = 1;
@@ -87,7 +87,7 @@ export const getPlayerAndCountryData = (leaderboard) => {
     }
 
     players.sort((a, b) => {
-        return b.Exterminations - a.Exterminations;
+        return b.Exterminations - a.Exterminations || b.Demolitions - a.Demolitions;
     })
 
     let j = 1;
