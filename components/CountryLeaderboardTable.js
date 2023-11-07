@@ -11,7 +11,6 @@ export default function CountryLeaderboardTable({ countryData }) {
         {
             title: 'Demolitions',
             field: 'Demolitions',
-            defaultSort: 'desc',
             render: (data) => {
                 return data.Demolitions.toLocaleString();
             }
@@ -24,7 +23,6 @@ export default function CountryLeaderboardTable({ countryData }) {
         {
             title: 'Exterminations',
             field: 'Exterminations',
-            defaultSort: 'desc',
             render: (data) => {
                 return data.Exterminations.toLocaleString();
             }
@@ -32,7 +30,6 @@ export default function CountryLeaderboardTable({ countryData }) {
         {
             title: 'Exterminations Rank',
             field: 'ExterminationsRank',
-            defaultSort: 'asc'
         },
         {
             title: 'Contributors',
